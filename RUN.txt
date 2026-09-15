@@ -1,0 +1,25 @@
+GMGN Desk — local run
+
+Need: Node.js 22+, npm
+
+  cd gmgn-desk
+  npm install
+  export GMGN_API_KEY=your_gmgn_openapi_key
+  npm run dev
+
+Open http://localhost:8080
+
+Notes:
+- Without GMGN_API_KEY the server falls back to the key baked in src/lib/gmgn/http.server.ts — rotate it.
+- First load uses cache if present; live OpenAPI ticks every ~45s (Free plan).
+- Database is PGLite in-process (no Postgres required). Set DATABASE_URL to use real Postgres.
+- Auth is off.
+
+Rate limiter config (GMGN OpenAPI Free plan = 5 weight/s):
+  export GMGN_RATE_WPS=2.5      # weight-units per second (default 2.5, max 5)
+  export GMGN_RATE_BURST=2.5    # bucket capacity in weight (default = GMGN_RATE_WPS)
+  export GMGN_MAX_CONCURRENT=2  # simultaneous in-flight HTTP calls (default 2, max 4)
+  export GMGN_DEBUG=1           # per-request perf logs (queue/net/total ms)
+
+Start conservative (2.5 w/s = half the plan). Raise GMGN_RATE_WPS toward 5
+while watching [GMGN] logs + 429 count; never exceed 5.

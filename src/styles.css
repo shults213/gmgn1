@@ -1,0 +1,92 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+
+  --color-bg: #07090b;
+  --color-surface: #101318;
+  --color-raised: #161b20;
+  --color-hover: #1c2228;
+  --color-line: #232a32;
+  --color-fg: #e8e4dc;
+  --color-muted: #8a8478;
+  --color-faint: #5c5850;
+  --color-gold: #c4a574;
+  --color-gold-dim: #8a7350;
+  --color-buy: #3dd68c;
+  --color-sell: #f06156;
+  --color-warn: #c9a227;
+  --color-steel: #8aa0b4;
+
+  --text-micro: 0.6875rem;
+  --text-micro--line-height: 1.25;
+  --text-tiny: 0.75rem;
+  --text-tiny--line-height: 1.35;
+  --text-desk: 0.8125rem;
+  --text-desk--line-height: 1.4;
+
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+
+  --shadow-desk: 0 12px 40px -24px rgb(0 0 0 / 0.7);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  html,
+  body,
+  #app {
+    height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    overflow: hidden;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    overflow: hidden;
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--color-gold) 32%, transparent);
+    color: var(--color-fg);
+  }
+}
+
+@layer utilities {
+  .desk-nums {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+    font-feature-settings: "tnum" 1;
+  }
+
+  tr.desk-row-sel > td:first-child {
+    box-shadow: inset 2px 0 0 var(--color-gold);
+  }
+
+  tbody tr > td {
+    border-bottom: 1px solid color-mix(in oklab, var(--color-line) 80%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
